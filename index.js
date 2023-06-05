@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3001;
+const port = 3000;
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
 const lookup = {};
@@ -12,7 +12,6 @@ app.post("/receipts/process", (req, res) => {
   }
   const id = uuidv4();
   lookup[id] = receipt;
-
   return res.json({ id });
 });
 
@@ -41,7 +40,6 @@ function isValidReceipt(receipt) {
   if (typeof receipt.retailer !== "string") {
     return false;
   }
-
   if (
     typeof receipt.purchaseDate !== "string" ||
     !dateRegex.test(receipt.purchaseDate)
@@ -98,7 +96,6 @@ function itemcount(items) {
 }
 function trimmedLengthPoints(item) {
   const trimmedLength = item.shortDescription.trim().length;
-
   let pointsEarned = 0;
   if (trimmedLength % 3 === 0) {
     pointsEarned = Math.ceil(parseInt(item.price) * 0.2);
@@ -107,7 +104,6 @@ function trimmedLengthPoints(item) {
 }
 function purchaseDatePoints(purchaseDate) {
   const day = parseInt(purchaseDate.split("-")[2]);
-
   if (day % 2 === 1) return 1;
   return 0;
 }
@@ -120,13 +116,9 @@ function purchaseTimePoints(purchaseTime) {
 function calculatePoints(receipt) {
   let points = 0;
   points += getAlphaNumericCount(receipt.retailer);
-
   points += getRoundDollarAmount(receipt.total) * 50;
-
   points += getmultiple(receipt.total) * 25;
-
   points += itemcount(receipt.items) * 5;
-
   receipt.items.forEach((item) => {
     points += trimmedLengthPoints(item);
   });
