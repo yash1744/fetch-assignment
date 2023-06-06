@@ -9,7 +9,7 @@ To build using docker use command:
 docker build -t fetch-assignment .
 ```
 
-to Run the docker Container on PORT 3000 use command:
+to  bind docker Container to PORT 3000 use command:
 
 ```
 docker run -d -p 3000:3000 fetch-assignment
@@ -41,6 +41,8 @@ to test the POST receipts/process endpoint use:
 ```
 curl -X POST -d <receipt_object> -H "Content-Type: application/json" "http://localhost:3000/receipts/process"
 ```
+where receipt_object needs to substitued by real receipt object
+
 example:
 ```
 curl -X POST -d '{
@@ -68,7 +70,7 @@ curl -X POST -d '{
   "total": "35.35"
 }' -H "Content-Type: application/json" "http://localhost:3000/receipts/process"
 ```
-where receipt_object needs to substitued by real receipt object
+
 
 to test the GET /receipts/:id/points endpoint use :
 
