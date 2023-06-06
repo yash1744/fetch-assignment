@@ -9,7 +9,7 @@ To build using docker use command:
 docker build -t fetch-assignment .
 ```
 
-to  bind docker Container to PORT 3000 use command:
+to run and bind PORT 3000 to docker Container use command:
 
 ```
 docker run -d -p 3000:3000 fetch-assignment
